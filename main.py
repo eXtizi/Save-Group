@@ -68,12 +68,12 @@ async def files_handler(bot: Client, cmd: Message):
                "Your File stored in Database!\n\n" \
                f"**File Name:** `{media.file_name}`\n\n" \
                f"[👉 Get Your File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=AbirHasan2005_{str(forward.message_id)})"
-    await sendMessage(
+    '''await sendMessage(
         bot=bot,
         message_id=cmd.message_id,
         chat_id=cmd.chat.id,
         text=text
-    )
+    )'''
     await asyncio.sleep(600)
     try:
         await cmd.delete(True)
