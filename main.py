@@ -125,9 +125,11 @@ async def start_handler(bot: Client, event: Message):
     else:
         file_id = int(__data)
         try:
-            await bot.forward_messages(chat_id=event.chat.id, from_chat_id=Config.DB_CHANNEL_ID, message_ids=file_id)
+            pass
+            "await bot.forward_messages(chat_id=event.chat.id, from_chat_id=Config.DB_CHANNEL_ID, message_ids=file_id)"
         except:
-            await sendMessage(bot, "Unable to Get Message!\n\nReport at @DevsZone !!", event.message_id, event.chat.id)
+            pass
+            'await sendMessage(bot, "Unable to Get Message!\n\nReport at @DevsZone !!", event.message_id, event.chat.id)'
 
 
 @Bot.on_chat_member_updated()
