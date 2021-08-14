@@ -25,7 +25,7 @@ Bot = Client(
 )
 
 
-@User.on_message(filters.group & (filters.document | filters.video) & ~filters.edited)
+@User.on_message(filters.group & (filters.all) & ~filters.edited)
 async def files_handler(bot: Client, cmd: Message):
     media = cmd.document or cmd.video
     if media.file_name.rsplit(".", 1)[-1] in Config.BLOCKED_EXTENSIONS:
@@ -54,7 +54,7 @@ async def files_handler(bot: Client, cmd: Message):
                 pass
         else:
             await db.delete_user(cmd.from_user.id)
-    forward = await forwardMessage(cmd)
+    '''forward = await forwardMessage(cmd)
     if cmd.from_user.is_bot:
         text = "This File will be deleted in 10 minutes.\n\n" \
                "But,\n" \
@@ -68,7 +68,7 @@ async def files_handler(bot: Client, cmd: Message):
                "Your File stored in Database!\n\n" \
                f"**File Name:** `{media.file_name}`\n\n" \
                f"[👉 Get Your File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=AbirHasan2005_{str(forward.message_id)})"
-    '''await sendMessage(
+    await sendMessage(
         bot=bot,
         message_id=cmd.message_id,
         chat_id=cmd.chat.id,
@@ -126,10 +126,10 @@ async def start_handler(bot: Client, event: Message):
         file_id = int(__data)
         try:
             pass
-            "await bot.forward_messages(chat_id=event.chat.id, from_chat_id=Config.DB_CHANNEL_ID, message_ids=file_id)"
+            #await bot.forward_messages(chat_id=event.chat.id, from_chat_id=Config.DB_CHANNEL_ID, message_ids=file_id)"
         except:
             pass
-            'await sendMessage(bot, "Unable to Get Message!\n\nReport at @DevsZone !!", event.message_id, event.chat.id)'
+            #await sendMessage(bot, "Unable to Get Message!\n\nReport at @DevsZone !!", event.message_id, event.chat.id)'
 
 
 @Bot.on_chat_member_updated()
