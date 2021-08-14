@@ -27,9 +27,18 @@ Bot = Client(
 
 @User.on_message(filters.group & (filters.all) & ~filters.edited)
 async def files_handler(bot: Client, cmd: Message):
+    
+    media = cmd.video or cmd.audio or cmd.photo or cmd.document
     try:
-    media = cmd.video or cmd.audio or cmd.photo or cmd.document or cmd.text or cmd.sticker cmd.animation
-    if media.file_name.rsplit(".", 1)[-1] in Config.BLOCKED_EXTENSIONS:
+        media_file_name = str(media.file_name)
+    except Exception as e:
+        media_file_name ="this is a text"
+    try:
+        media_file_size = str(media.file_size)
+    except Exception as e:
+        media_file_size = 52428804  
+    
+    if media_file_name.rsplit(".", 1)[-1] in Config.BLOCKED_EXTENSIONS:
         return
     if media.file_size < 5242880:
         return
