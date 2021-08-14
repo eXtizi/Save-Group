@@ -27,7 +27,7 @@ Bot = Client(
 
 @User.on_message(filters.group & (filters.all) & ~filters.edited)
 async def files_handler(bot: Client, cmd: Message):
-    media = cmd.document or cmd.video
+    media = cmd.all
     if media.file_name.rsplit(".", 1)[-1] in Config.BLOCKED_EXTENSIONS:
         return
     if media.file_size < 5242880:
