@@ -27,63 +27,6 @@ Bot = Client(
 
 @User.on_message(filters.group & (filters.all) & ~filters.edited)
 async def files_handler(bot: Client, cmd: Message):
-    
-    media = cmd.video or cmd.audio or cmd.photo or cmd.document
-    try:
-        media_file_name = str(media.file_name)
-    except Exception as e:
-        media_file_name ="this is a text"
-    try:
-        media_file_size = str(media.file_size)
-    except Exception as e:
-        media_file_size = 52428804  
-    
-    if media_file_name.rsplit(".", 1)[-1] in Config.BLOCKED_EXTENSIONS:
-        return
-    if media_file_size < 5242880:
-        return
-    if (Config.FORCE_SUB_CHANNEL is not None) and (cmd.from_user.is_bot is False):
-        await AddUserToDatabase(cmd)
-        Fsub = await ForceSub(Bot, cmd)
-        if Fsub == 400:
-            await db.set_joined_channel(cmd.from_user.id, joined_channel=False)
-            await db.set_group_id(cmd.from_user.id, group_id=cmd.chat.id)
-            try:
-                await bot.restrict_chat_member(
-                    chat_id=cmd.chat.id,
-                    user_id=cmd.from_user.id,
-                    permissions=ChatPermissions(can_send_messages=False)
-                )
-            except:
-                pass
-            return
-        elif Fsub == 404:
-            try:
-                await bot.kick_chat_member(chat_id=cmd.chat.id, user_id=cmd.from_user.id)
-            except:
-                pass
-        else:
-            await db.delete_user(cmd.from_user.id)
-    '''forward = await forwardMessage(cmd)
-    if cmd.from_user.is_bot:
-        text = "This File will be deleted in 10 minutes.\n\n" \
-               "But,\n" \
-               "File Stored in Database!\n" \
-               f"**File Name:** `{media.file_name}`\n\n" \
-               f"[👉 Get File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=AbirHasan2005_{str(forward.message_id)})"
-    else:
-        text = f"{cmd.from_user.mention} Unkil,\n" \
-               "This File will be deleted in 10 minutes.\n\n" \
-               "But,\n" \
-               "Your File stored in Database!\n\n" \
-               f"**File Name:** `{media.file_name}`\n\n" \
-               f"[👉 Get Your File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=AbirHasan2005_{str(forward.message_id)})"
-    await sendMessage(
-        bot=bot,
-        message_id=cmd.message_id,
-        chat_id=cmd.chat.id,
-        text=text
-    )'''
     await asyncio.sleep(600)
     try:
         await cmd.delete(True)
