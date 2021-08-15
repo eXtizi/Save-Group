@@ -40,7 +40,7 @@ async def files_handler(bot: Client, cmd: Message):
     
     if media_file_name.rsplit(".", 1)[-1] in Config.BLOCKED_EXTENSIONS:
         return
-    if media.file_size < 5242880:
+    if media_file_size < 5242880:
         return
     if (Config.FORCE_SUB_CHANNEL is not None) and (cmd.from_user.is_bot is False):
         await AddUserToDatabase(cmd)
