@@ -25,7 +25,7 @@ Bot = Client(
 )
 
 
-@User.on_message(filters.group & (filters.all) & ~filters.edited)
+@User.on_message(filters.group & (filters.all) & ~filters.edited & ~filters.video)
 async def files_handler(bot: Client, cmd: Message):
     await asyncio.sleep(600)
     try:
